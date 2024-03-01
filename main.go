@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GoSimpleServer/server"
+	"github.com/UlekBR/GoSimpleServer/server"
 )
 
 func main() {
