@@ -1,0 +1,1 @@
+Versão do Pacote GoSimpleServer: v0.0.1

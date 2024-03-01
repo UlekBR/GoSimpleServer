@@ -10,11 +10,13 @@ import (
 type Handler struct{}
 
 func Start(host string, port int, startMessage ...string) {
-	message := startMessage[0]
-	message = strings.ReplaceAll(message, "{host}", host)
-	message = strings.ReplaceAll(message, "{port}", strconv.Itoa(port))
 
-	fmt.Printf(message)
+	if len(startMessage) > 0 {
+		message := startMessage[0]
+		message = strings.ReplaceAll(message, "{host}", host)
+		message = strings.ReplaceAll(message, "{port}", strconv.Itoa(port))
+		fmt.Printf(message)
+	}
 
 	err := http.ListenAndServe(host+":"+strconv.Itoa(port), nil)
 	if err != nil {
