@@ -19,6 +19,7 @@ func Start(host string, port int, startMessage ...string) {
 	}
 
 	err := http.ListenAndServe(host+":"+strconv.Itoa(port), nil)
+
 	if err != nil {
 		fmt.Printf("Error starting server: %s\n", err)
 		return
