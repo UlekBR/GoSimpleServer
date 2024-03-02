@@ -59,7 +59,10 @@ func (h *Handler) GetAndPost(path string, fn func(*ResponseManager)) {
 
 		} else {
 			w.WriteHeader(http.StatusMethodNotAllowed)
-			w.Write([]byte("Method not Allowed"))
+			_, err := w.Write([]byte("Method not Allowed"))
+			if err != nil {
+				return
+			}
 		}
 
 	})
