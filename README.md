@@ -5,6 +5,13 @@
 handler := &server.Handler{}
 ```
 
+## Criar Entrada Get and Post
+```cgo
+handler.GetAndPost("/", func(rw *server.ResponseManager) {
+    rw.WriteString("hello world")
+})
+```
+
 ## Criar Entrada get
 ```cgo
 handler.Get("/get", func(rw *server.ResponseManager) {
