@@ -1,6 +1,5 @@
 # GoSimpleServer
 
-
 ## Iniciar Handler 
 ```cgo
 handler := &server.Handler{}

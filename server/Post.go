@@ -4,10 +4,14 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"strings"
 )
 
 func (h *Handler) Post(path string, fn func(*ResponseManager)) {
 	http.HandleFunc("POST "+path, func(w http.ResponseWriter, r *http.Request) {
+
+		parts := strings.Split(r.Host, ":")
+		host, port := parts[0], parts[1]
 
 		body, err := io.ReadAll(r.Body)
 		if err != nil {
@@ -38,10 +42,17 @@ func (h *Handler) Post(path string, fn func(*ResponseManager)) {
 					return
 				}
 			},
-			URL:    r.URL,
-			Method: r.Method,
-			Body:   string(body),
-			Header: w.Header(),
+			getPathValue: func(str string) string {
+				return r.PathValue(str)
+			},
+			URL:        r.URL,
+			Method:     r.Method,
+			Body:       string(body),
+			Header:     w.Header(),
+			Host:       host,
+			Port:       port,
+			RequestURI: r.RequestURI,
+			RemoteAddr: r.RemoteAddr,
 		})
 
 	})

@@ -3,10 +3,15 @@ package server
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 )
 
 func (h *Handler) Get(path string, fn func(*ResponseManager)) {
 	http.HandleFunc("GET "+path, func(w http.ResponseWriter, r *http.Request) {
+
+		parts := strings.Split(r.Host, ":")
+		host, port := parts[0], parts[1]
+
 		fn(&ResponseManager{
 
 			stringWriteFunc: func(str string) {
@@ -36,9 +41,13 @@ func (h *Handler) Get(path string, fn func(*ResponseManager)) {
 			getPathValue: func(str string) string {
 				return r.PathValue(str)
 			},
-			URL:    r.URL,
-			Method: r.Method,
-			Header: w.Header(),
+			URL:        r.URL,
+			Method:     r.Method,
+			Header:     w.Header(),
+			Host:       host,
+			Port:       port,
+			RequestURI: r.RequestURI,
+			RemoteAddr: r.RemoteAddr,
 		})
 
 	})

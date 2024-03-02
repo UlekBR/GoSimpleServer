@@ -7,8 +7,12 @@ import (
 func main() {
 	handler := &server.Handler{}
 
+	handler.GetAndPost("/", func(rw *server.ResponseManager) {
+		rw.WriteString("hello world " + rw.RequestURI)
+	})
+
 	handler.Get("/get", func(rw *server.ResponseManager) {
-		rw.WriteString("hello world")
+		rw.WriteString("hello world " + rw.Host)
 	})
 
 	handler.Post("/post", func(rw *server.ResponseManager) {

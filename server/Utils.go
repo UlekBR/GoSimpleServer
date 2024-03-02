@@ -19,6 +19,10 @@ type ResponseManager struct {
 	Body            string
 	Header          http.Header
 	getPathValue    ResponseGetPathValueFunc
+	Host            string
+	Port            string
+	RequestURI      string
+	RemoteAddr      string
 }
 
 func (rw *ResponseManager) WriteString(str string) {
